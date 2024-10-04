@@ -1,0 +1,53 @@
+body {
+    background-color: aliceblue;
+    color: black
+}
+
+h1 {
+    color: blue;
+    font-size: 50px;
+}
+
+div {
+    background-color: pink;
+    color: black;
+    width:fit-content;
+    height: auto;
+    font-size: 20px;
+
+    margin: 10px;
+    border: solid black 2px;
+    padding: 20px;
+
+    text-align: center;
+}
+
+.search {
+    background-color: rgb(141, 156, 213);
+    color: black;
+    font-size: 20px;
+    width: 100px;
+    height: 100px;
+
+    transition: transform 2s 0.25s ease;
+}
+
+.search:hover {
+    transform: scale(2);
+}
+
+.timezone {
+    background-color: blueviolet;
+    color: white;
+}
+
+.weather {
+    background-color: aquamarine;
+    background-image: url("../img/cloudy-day.png");
+    color: white;
+}
+
+.temperature {
+    background-color: blue;
+    color: white;
+}
