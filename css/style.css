@@ -1,3 +1,53 @@
+/* ====== LAYOUT ===== */
+* {
+    box-sizing: border-box;
+}
+
+.both div {
+    width: auto;
+    height: auto;
+
+    margin: 30px;
+}
+
+.search {
+    display: flex;
+    justify-content: center;
+
+    margin: 20px;
+}
+
+.search div {
+    padding: 20px;                 
+
+    flex-grow: 0; 
+    flex-shrink: 1; 
+    max-width: 30%;
+}
+
+.features {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    margin: 20px;
+}
+
+.features div {
+    padding: 20px;                 
+    background-color: lightblue; 
+    color: black;  
+    border: 2px solid blue;        
+    text-align: center; 
+    
+    flex-grow: 0; 
+    flex-shrink: 1; 
+    max-width: 30%;
+  }
+
+/* ====== FORMATTING ===== */
+
 body {
     background-color: aliceblue;
     color: black
@@ -8,28 +58,10 @@ h1 {
     font-size: 50px;
 }
 
-div {
-    background-color: pink;
+.search-box {
+    background-color: blue;
     color: black;
-    width:fit-content;
-    height: auto;
-    font-size: 20px;
-
-    margin: 10px;
-    border: solid black 2px;
-    padding: 20px;
-
-    text-align: center;
-}
-
-.search {
-    background-color: rgb(141, 156, 213);
-    color: black;
-    font-size: 20px;
-    width: 100px;
-    height: 100px;
-
-    transition: transform 2s 0.25s ease;
+    /* transition: transform 2s 0.25s ease; */
 }
 
 .search:hover {
@@ -37,17 +69,13 @@ div {
 }
 
 .timezone {
-    background-color: blueviolet;
-    color: white;
 }
 
 .weather {
-    background-color: aquamarine;
+    background-color: blue;
     background-image: url("../img/cloudy-day.png");
-    color: white;
+    color: black;
 }
 
 .temperature {
-    background-color: blue;
-    color: white;
 }

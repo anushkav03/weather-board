@@ -6,23 +6,36 @@
         <title>Weather Checker</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body>
+    <body class="both">
         <!-- strong and em instead of b and i for bold, italics for accessibility, screen readers-->
         <h1>My weather webtool</h1>
         <div class="search">
-            <input class="input-copy-from" type="text" placeholder="Enter city name: ">
-            <p class="input-copy-to">example</p>
+            <div class="search-box">
+                <input class="input-copy-from" type="text" placeholder="Enter city name: ">
+                <!-- <p class="input-copy-to">example</p> -->
+            </div>
         </div>
-        <div class="timezone">
-            <p>Timezone and city</p>
+
+        <div class="features">
+            <div class="weather">
+                <p>Icon and weather</p>
+                <img src="img/weather.jpeg" alt="sun rain under an umbrella">
+            </div>
+
+            <div class="timezone">
+                <p>Timezone and city</p>
+                <img src="img/weather.jpeg" alt="sun rain under an umbrella">
+            </div>
+
+            <div class="temperature">
+                <p>Temperature (clickable)</p>
+            </div> 
+
+            <div class="music">
+                <p>Get spotify playlist</p>
+            </div>
+
         </div>
-        <div class="weather">
-            <p>Icon and weather</p>
-            <img src="img/weather.jpeg" alt="sun rain under an umbrella">
-        </div>
-        <div class="temperature">
-            <p>Temperature (clickable)</p>
-        </div> 
         <script src="js/app.js"></script>
     </body>
 </html>
