@@ -1,3 +1,19 @@
+// VARIABLES & DOM ELEMENTS
+let weatherData = null
+
+const rawInput = document.querySelector('.input')
+const paraContainer = document.querySelector('.search-box')
+
+const weatherText = document.querySelector('.weather-text')
+const weatherImg = document.querySelector('.weather-img')
+
+const timezoneText = document.querySelector('.timezone-text')
+const cityText = document.querySelector('.city-text')
+
+const tempBox = document.querySelector('.temperature');
+const tempText = document.querySelector('.temperature-text')
+
+
 // FUNCTIONS
 function getWeatherData(city) {
     const apiKey = "47c2a0b267bb49e6949222002240510"
@@ -11,34 +27,53 @@ function getWeatherData(city) {
             return response.json();
         })
         .then(data => {
-            // update
-            const weather = document.querySelector('.weather-text')
-            const timezone = document.querySelector('.timezone-text')
+            weatherData = data;
+            // Update Weather div
+            weatherText.textContent = weatherData.current.condition.text;
+            weatherImg.src = `https:${weatherData.current.condition.icon}`;
 
-            weather.textContent = data.location.name + ", " + data.location.region + ", " + data.location.country
-            timezone.textContent = data.current.condition.text
+            // Update Timezone and City div
+            cityText.textContent = weatherData.location.localtime
+            timezoneText.textContent = weatherData.location.name + ", " + weatherData.location.region + ", " + weatherData.location.country;
+
+            // Update Temperature div
+            if (weatherData.location.country == "United States of America") {
+                tempText.textContent = weatherData.current.temp_f.toString() + "°F"
+            } else {
+                tempText.textContent = weatherData.current.temp_c.toString() + "°C"
+            }
         })
 }
 
-// DOM ELEMENTS
+// !! Separate API call & getting data from updating the UI
+
+function changeTemperature() {
+    if (tempText.textContent[tempText.textContent.length - 1] == "C") {
+        tempText.textContent = weatherData.current.temp_f + "°F"
+    } else {
+        tempText.textContent = weatherData.current.temp_c + "°C"
+    }
+}
 
 
 
 const search = document.querySelector('.search');
 
-const temp = document.querySelector('.temperature');
-temp.addEventListener("click", function() {
-    alert('well oo man the way they turn cold');
-});
 
-const rawInput = document.querySelector('.input')
-const paraContainer = document.querySelector('.search-box')
+// EVENT LISTENERS
+
+// User entering city
 rawInput.addEventListener('keydown', function(event) {
     if ((event.key ) == 'Enter')  {
         const input = rawInput.value.trim();
         if (input != "") {
             // call weather function
-            getWeatherData(input)
+            getWeatherData(input);
         }
     }
 })
+
+// User changing temperature units
+tempBox.addEventListener("click", function() {
+    changeTemperature(); 
+});
