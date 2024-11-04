@@ -1,4 +1,10 @@
 /* ====== LAYOUT ===== */
+
+.feature {
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -35,22 +41,11 @@
 }
 
 .features div {
-    padding: 20px;                 
-    background-color: lightblue; 
-    color: black;  
-    border: 2px solid blue;        
-    text-align: center; 
-    
-    flex-grow: 0; 
-    flex-shrink: 1; 
-    max-width: 30%;
   }
 
 /* ====== FORMATTING ===== */
 
 body {
-    background-color: aliceblue;
-    color: black
 }
 
 h1 {
@@ -58,24 +53,7 @@ h1 {
     font-size: 50px;
 }
 
-.search-box {
-    background-color: red;
-    color: black;
-    /* transition: transform 2s 0.25s ease; */
-}
-
 .search:hover {
     transform: scale(2);
 }
 
-.timezone {
-}
-
-.weather {
-    background-color: blue;
-    background-image: url("../img/cloudy-day.png");
-    color: black;
-}
-
-.temperature {
-}
