@@ -12,6 +12,7 @@ const cityText = document.querySelector('.city-text')
 
 const tempBox = document.querySelector('.temperature');
 const tempText = document.querySelector('.temperature-text')
+const tempIcon = document.querySelector('.thermometer-icon');
 
 
 // FUNCTIONS
@@ -42,10 +43,27 @@ function getWeatherData(city) {
             } else {
                 tempText.textContent = weatherData.current.temp_c.toString() + "°C"
             }
+            changeTemperatureIcon();
         })
 }
 
 // !! Separate API call & getting data from updating the UI
+
+// Change temperature icon (cold, normal, hot)
+function changeTemperatureIcon() {
+    tempIcon.classList.remove('bi-thermometer', 'bi-thermometer-low', 'bi-thermometer-half', 'bi-thermometer-high');
+    let temp = weatherData.current.temp_c;
+
+    if (temp < 15) {
+        tempIcon.classList.add('bi-thermometer-low');
+    }
+    else if (temp >= 15 && temp < 30) {
+        tempIcon.classList.add('bi-thermometer-half');
+    }
+    else if (temp >= 30) {
+        tempIcon.classList.add('bi-thermometer-high');
+    }
+}
 
 function changeTemperature() {
     if (tempText.textContent[tempText.textContent.length - 1] == "C") {
