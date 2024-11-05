@@ -1,59 +1,13 @@
 /* ====== LAYOUT ===== */
 
 .feature {
-    background-color: aquamarine;
+    background-color: aqua;
     border: 1px solid black;
 }
 
-* {
-    box-sizing: border-box;
+.weather-text {
+    color: red;
 }
 
-.both div {
-    width: auto;
-    height: auto;
 
-    margin: 30px;
-}
-
-.search {
-    display: flex;
-    justify-content: center;
-
-    margin: 20px;
-}
-
-.search div {
-    padding: 20px;                 
-
-    flex-grow: 0; 
-    flex-shrink: 1; 
-    max-width: 30%;
-}
-
-.features {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: flex-start;
-
-    margin: 20px;
-}
-
-.features div {
-  }
-
-/* ====== FORMATTING ===== */
-
-body {
-}
-
-h1 {
-    color: blue;
-    font-size: 50px;
-}
-
-.search:hover {
-    transform: scale(2);
-}
 
