@@ -14,6 +14,9 @@ const tempBox = document.querySelector('.temperature');
 const tempText = document.querySelector('.temperature-text')
 const tempIcon = document.querySelector('.thermometer-icon');
 
+const search = document.querySelector('.search');
+
+
 
 // FUNCTIONS
 function getWeatherData(city) {
@@ -56,12 +59,19 @@ function changeTemperatureIcon() {
 
     if (temp < 15) {
         tempIcon.classList.add('bi-thermometer-low');
+        tempIcon.style.color = "blue";
     }
-    else if (temp >= 15 && temp < 30) {
+    else if (temp >= 15 && temp < 25) {
         tempIcon.classList.add('bi-thermometer-half');
+        tempIcon.style.color = "green";
     }
-    else if (temp >= 30) {
+    else if (temp >= 25 && temp < 35) {
         tempIcon.classList.add('bi-thermometer-high');
+        tempIcon.style.color = "yellow";
+    }
+    else {
+        tempIcon.classList.add('bi-thermometer-high');
+        tempIcon.style.color = "red";
     }
 }
 
@@ -75,7 +85,6 @@ function changeTemperature() {
 
 
 
-const search = document.querySelector('.search');
 
 
 // EVENT LISTENERS
