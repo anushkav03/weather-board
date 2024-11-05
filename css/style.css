@@ -5,7 +5,9 @@
     border: 1px solid black;
 }
 
-.weather-text {
+.card-footer p {
+    /* make text smaller */
+    font-size: 0.7rem; 
 }
 
 
