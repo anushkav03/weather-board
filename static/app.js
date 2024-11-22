@@ -1,4 +1,4 @@
-// VARIABLES & DOM ELEMENTS //
+// ======== VARIABLES & DOM ELEMENTS ======== //
 let weatherData = null
 
 const rawInput = document.querySelector('.input')
@@ -14,15 +14,17 @@ const tempBox = document.querySelector('.temperature');
 const tempText = document.querySelector('.temperature-text')
 const tempIcon = document.querySelector('.thermometer-icon');
 
+const playlistButton = document.querySelector('.playlistButton')
+const playlistEmbed = document.getElementById('spotify-embed');
+
 const search = document.querySelector('.search');
 
 
-
-// API CALL TO BACKEND //
+// ======== API CALL TO BACKEND ======== //
 function updateWeatherData(city) {
-    const apiURL = `/weather?city=${city}`
+    const apiWeatherURL = `/weather?city=${city}`
 
-    fetch(apiURL)
+    fetch(apiWeatherURL)
         .then(response => {
             if (!response.ok) {
                 alert('Try entering a valid city name.')
@@ -39,7 +41,8 @@ function updateWeatherData(city) {
         })
 }
 
-// UI UPDATE FUNCTIONS //
+
+// ======== UI UPDATE FUNCTIONS ======== //
 
 // Update weather div
 function updateWeather() {
@@ -94,8 +97,35 @@ function updateTemperatureUnit() {
     }
 }
 
+// // User auth
+// function userAuth(){
+//     fetch('login')
+//         .then(response => response.json())
+//         .then(data => {
+//             // Redirect user to returned Spotify authorization URL
+//             window.location.href = data.auth_url;
+//         })
+//         .catch(error => console.error('Error:', error));
+// }
 
-// EVENT LISTENERS //
+// Show Spotify playlist embed
+function getPlaylist() {
+    currWeather = "sunny"
+    fetch(`playlist?weather=${currWeather}`)
+        .then(response => response.text()
+        .then(oembed_html => {
+            playlistEmbed.innerHTML = oembed_html;
+        }))
+
+    // let playlistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1EIeBPeLAL3kZc?utm_source=oembed";
+    // playlistEmbed.innerHTML = `<iframe style="border-radius: 12px" width="100%" height="352" title="Spotify Embed: Rainy Day Morning Mix"
+    //         frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    //         loading="lazy" src=${playlistURL}>
+    // </iframe>`;
+}
+
+
+// ======== EVENT LISTENERS ======== //
 
 // User entering city
 rawInput.addEventListener('keydown', function(event) {
@@ -115,3 +145,10 @@ tempBox.addEventListener("click", function() {
 
 // Default page when window loads; for now, Berkeley CA
 window.onload = updateWeatherData("Berkeley")
+
+// User clicking "get playlist" button
+playlistButton.addEventListener("click", function() {
+    getPlaylist(); 
+});
+
+// ======== other stuff ======== //

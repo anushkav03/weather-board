@@ -30,11 +30,11 @@
             </div>
 
             <!-- Results -->
-            <div class="row my-5">
+            <div class="row my-5 flex-wrap">
 
                 <!-- Results > Weather -->
                 <div class="col weather">
-                    <div class="card text-center p-3 feature">
+                    <div class="card text-center p-3 my-3 feature">
                         <div class="card-image-top">
                             <img class="weather-img" src="img/weather.jpeg" alt="">
                         </div>
@@ -46,7 +46,7 @@
                 
                 <!-- Results > Temperature -->
                 <div class="col">
-                    <div class="card text-center temperature feature">
+                    <div class="card text-center temperature my-3 feature">
                         <div class="card-image-top my-3">
                             <!--<img class="temperature-img" src="img/weather.jpeg" alt="">-->
                             <i class="bi bi-thermometer fs-1 thermometer-icon"></i>
@@ -61,15 +61,17 @@
                 </div>
 
                 <!-- Results > Music -->
-                <div class="col text-center music">
-                    <div class="card text-center p-3 feature">
-                        <p>get spotify playlist</p>
+                <div class="col-6 text-center music">
+                    <div class="card text-center my-3 feature">
+                        <button type="button" class="m-1 btn btn-primary btn-sm playlistButton">Get Spotify Playlist!</button>
+                        <div class="p-3" id="spotify-embed">
+                        </div>
                     </div>
                 </div>
 
                 <!-- Results > Timezone -->
                 <div class="col timezone">
-                    <div class="card text-center p-3 feature">
+                    <div class="card text-center my-3 p-3 feature">
                         <p class="city-text">City</p>
                         <p class="timezone-text">Timezone</p>
                     </div>
@@ -78,6 +80,7 @@
 
         </div>
         <script src="../static/app.js"></script>
+        <!--script src="../static/music.js"></script-->
     </body>
 </html>
 

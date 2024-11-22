@@ -44,5 +44,10 @@ body {
     font-size: 0.7rem; 
 }
 
+.playlistButton {
+    border-color: #ffa07a;
+    background-color: #ffa07a;
+}
+
 
 
