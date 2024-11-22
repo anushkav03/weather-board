@@ -40,7 +40,10 @@ def home():
 ## Client Credentials auth flow; get access token > playlist ID > oembed html
 @app.route('/playlist')
 def getPlaylist():
-    weather = request.args.get('weather', default="sunny")
+    currWeather = request.args.get('currWeather', default="sunny")
+    # Get weather keyword
+    weather = getWeather(currWeather)
+
     # Get access token
     token = getAccessToken()
 
@@ -53,6 +56,19 @@ def getPlaylist():
     #return render_template('playlist.html', oembed_html=oembed_html)
     return oembed_html
 
+def getWeather(currWeather):
+    description = currWeather.lower()
+    if "rain" in description or "drizzle" in description or "shower" in description:
+        return "rainy"
+    elif "snow" in description or "sleet" in description or "ice pellets" in description:
+        return "snow"
+    elif "cloud" in description or "overcast" in description or "mist" in description or "fog" in description:
+        return "cloudy"
+    elif "sunny" in description or "clear" in description:
+        return "sunny"
+    else:
+        # Default
+        return "sunny"
 
 def getAccessToken():
     TOKEN_URL = "https://accounts.spotify.com/api/token"

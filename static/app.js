@@ -97,31 +97,15 @@ function updateTemperatureUnit() {
     }
 }
 
-// // User auth
-// function userAuth(){
-//     fetch('login')
-//         .then(response => response.json())
-//         .then(data => {
-//             // Redirect user to returned Spotify authorization URL
-//             window.location.href = data.auth_url;
-//         })
-//         .catch(error => console.error('Error:', error));
-// }
-
 // Show Spotify playlist embed
 function getPlaylist() {
-    currWeather = "sunny"
-    fetch(`playlist?weather=${currWeather}`)
+    currWeather = weatherData.current.condition.text;
+    // API call to backend
+    fetch(`playlist?currWeather=${currWeather}`)
         .then(response => response.text()
         .then(oembed_html => {
             playlistEmbed.innerHTML = oembed_html;
         }))
-
-    // let playlistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1EIeBPeLAL3kZc?utm_source=oembed";
-    // playlistEmbed.innerHTML = `<iframe style="border-radius: 12px" width="100%" height="352" title="Spotify Embed: Rainy Day Morning Mix"
-    //         frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-    //         loading="lazy" src=${playlistURL}>
-    // </iframe>`;
 }
 
 
