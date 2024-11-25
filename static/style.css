@@ -1,35 +1,36 @@
 /* Fonts */
 .header {
-    font-family: "Oleo Script Swash Caps", sans-serif;
-    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
     font-style: normal;
+    color: #1D3557;
 }
 
 .input {
-    font-family: "Hind Siliguri", sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-style: normal;
 
-    color: #333;
 }
 
 
 body {
     height: 100vh; /* Make the body cover the full viewport height */
     margin: 0; /* Remove default margin */
-    background: linear-gradient(to bottom, #87cefa, #005f6a); /* Full-page gradient */
-    color: #333;
+    /* background: linear-gradient(to bottom, #87cefa, #005f6a); Full-page gradient */
+    background: #F1FAEE;
+    color: #1D3557;
 }
 
 .feature {
-    font-family: "Hind Siliguri", sans-serif;
+    font-family: 'Open Sans', sans-serif;;
     font-weight: 400;
     font-style: normal;
 
-    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.622);
 
-    background-color: #f7f2e5;
-    border: 5px solid #ffa07a;
+    background-color: #A8DADC;
+    border: 5px solid #457B9D;
 }
 
 .card-body {
@@ -45,9 +46,23 @@ body {
 }
 
 .playlistButton {
-    border-color: #ffa07a;
-    background-color: #ffa07a;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+
+    border-color: #E63946;
+    background-color: #E63946;
 }
+
+.playlistButton:hover {
+    background-color: #c81b29; /* Darker pink */
+    transition: all 0.2s ease-in-out;
+}
+
+.changeTemp:hover {
+    background-color: #c81b29; /* Darker blue */
+    transition: all 0.2s ease-in-out;
+}
+
 
 
 
