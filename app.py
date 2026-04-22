@@ -91,7 +91,6 @@ def getAccessToken():
         access_token = token_data["access_token"]
         return access_token
     else:
-        # Handle errors
         error_message = response.json().get("error_description", "Unknown error")
         return jsonify({"error": error_message}), response.status_code
     
@@ -122,11 +121,11 @@ def getOEmbed(playlistID):
         oembed_data = response.json() 
         return oembed_data["html"]
 
-## Development
-if __name__ == '__main__':
-    app.run(debug=True)
+# ## Development
+# if __name__ == '__main__':
+#     app.run(debug=True)
 
 
-## Production
-#if __name__ == "__main__":
-#    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+# Production
+if __name__ == "__main__":
+   app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
