@@ -1,4 +1,4 @@
-// ======== VARIABLES & DOM ELEMENTS ======== //
+// DOM elements and variables
 let weatherData = null
 
 const rawInput = document.querySelector('.input')
@@ -20,14 +20,14 @@ const playlistEmbed = document.getElementById('spotify-embed');
 const search = document.querySelector('.search');
 
 
-// ======== API CALL TO BACKEND ======== //
+// get weather data via /weather route
 function updateWeatherData(city) {
-    const apiWeatherURL = `/weather?city=${city}`
+    const weatherResponse = `/weather?city=${city}`
 
-    fetch(apiWeatherURL)
+    fetch(weatherResponse)
         .then(response => {
             if (!response.ok) {
-                alert('Try entering a valid city name.')
+                alert('Please enter a valid city name!')
             }
             return response.json();
         })
@@ -42,7 +42,7 @@ function updateWeatherData(city) {
 }
 
 
-// ======== UI UPDATE FUNCTIONS ======== //
+// UI UPDATE FUNCTIONS AFTER WEATHER DATA COLLECTED
 
 // Update weather div
 function updateWeather() {
@@ -100,16 +100,16 @@ function updateTemperatureUnit() {
 // Show Spotify playlist embed
 function getPlaylist() {
     currWeather = weatherData.current.condition.text;
-    // API call to backend
+    // get oembed html from /playlist route
     fetch(`playlist?currWeather=${currWeather}`)
-        .then(response => response.text()
+        .then(response => response.text())
         .then(oembed_html => {
             playlistEmbed.innerHTML = oembed_html;
-        }))
+        })
 }
 
 
-// ======== EVENT LISTENERS ======== //
+// EVENT LISTENERS
 
 // User entering city
 rawInput.addEventListener('keydown', function(event) {
@@ -122,7 +122,7 @@ rawInput.addEventListener('keydown', function(event) {
     }
 })
 
-// User changing temperature units
+// User clicking to change temperature units
 tempBox.addEventListener("click", function() {
     updateTemperatureUnit(); 
 });
