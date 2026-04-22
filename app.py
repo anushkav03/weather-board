@@ -1,20 +1,22 @@
 import base64
-from flask import Flask, redirect, request, jsonify
+from random import random
+from flask import Flask, request, jsonify
 import requests
+from flask import render_template
+
 import os
 from dotenv import load_dotenv
-from flask import render_template
-import urllib
-
-# Get API keys
 load_dotenv()
+
 WEATHER_API_KEY = os.getenv("WEATHER_API_KEY")
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 
 app = Flask(__name__)
 
-# Routes
+## ROUTES
+
+# Get weather data
 @app.route('/weather', methods=['GET'])
 def get_weather(city=None):
     if city is None:
@@ -22,7 +24,7 @@ def get_weather(city=None):
     if not city:
         return jsonify({"error": "Try entering a valid city name."}), 400
 
-    # Make API call
+    # Make API call to weatherapi
     weather_api_url = f"http://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q={city}&aqi=no"
     response = requests.get(weather_api_url)
 
@@ -31,29 +33,31 @@ def get_weather(city=None):
         return jsonify(weather_data)
     else:
         return jsonify({"error": "Failed to fetch weather data"}), response.status_code
-    
+
+# Home page renders index.html template   
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
 
 
-## Client Credentials auth flow; get access token > playlist ID > oembed html
+# Spotify's Client Credentials auth flow; get access token > playlist ID > oembed html
 @app.route('/playlist')
-def getPlaylist():
+def get_playlist_route():
     currWeather = request.args.get('currWeather', default="sunny")
-    # Get weather keyword
-    weather = getWeather(currWeather)
-
-    # Get access token
+    weather = getWeather(currWeather) # simplifying weather terms & mapping to a smaller set of terms
     token = getAccessToken()
+    
+    # returns either Spotify URL string or an error dict
+    result = getPlaylistID(token, weather)
 
-    # Use access token to get playlist ID
-    playlistID = getPlaylistID(token, weather)
+    # if dict then error
+    if isinstance(result, dict):
+        return result.get("error", "Error"), 400
 
-    # Use playlist ID to get OEmbed HTML
-    oembed_html = getOEmbed(playlistID)
-
-    #return render_template('playlist.html', oembed_html=oembed_html)
+    # else pass into oembed 
+    oembed_html = getOEmbed(result)
+    
+    # and return resulting raw html
     return oembed_html
 
 def getWeather(currWeather):
@@ -78,14 +82,11 @@ def getAccessToken():
     headers = {
         "Authorization": f"Basic {client_creds_b64}",
         "Content-Type": "application/x-www-form-urlencoded"}
-    data = {
-        "grant_type": "client_credentials"
-    }
+    data = {"grant_type": "client_credentials"}
 
     response = requests.post(TOKEN_URL, headers=headers, data=data)
 
     if response.status_code == 200:
-        # Parse the JSON response; also has "Expires In" info
         token_data = response.json()
         access_token = token_data["access_token"]
         return access_token
@@ -95,32 +96,24 @@ def getAccessToken():
         return jsonify({"error": error_message}), response.status_code
     
 def getPlaylistID(access_token, weather):
-    WEBAPI_URL = "https://api.spotify.com/v1/search"
-
-    params = {
-        "q": weather,
-        "type": "playlist",
-        "limit": 1,
-        "offset": 0
-    }
-    headers = {
-        "Authorization": f"Bearer {access_token}"
-    }
-
-    response = requests.get(WEBAPI_URL, headers=headers, params=params)
+    # type=track for individual tracks; change back to type=playlist for playlist
+    params = {"q": weather, "type": "track"} 
+    headers = {"Authorization": f"Bearer {access_token}"}
+    
+    # api call to spotify search endpoint - to search by weather term
+    response = requests.get("https://api.spotify.com/v1/search", headers=headers, params=params)
 
     if response.status_code == 200:
-        playlist_data = response.json()
+        data = response.json()
+        items = data.get("tracks", {}).get("items", [])
         
-        if playlist_data["playlists"]["items"]:
-            playlistID = playlist_data["playlists"]["items"][0]["external_urls"]["spotify"]
-            return playlistID
-        else:
-            return {"error": "No playlists found for the given query."}
-    else:
-        # Handle errors
-        error_message = response.json().get("error", {}).get("message", "Unknown error")
-        return {"error": error_message}
+        if items:
+            # pick a random track from the items returned
+            import random
+            track = random.choice(items) 
+            return track["external_urls"]["spotify"]
+            
+    return {"error": "No tracks found"}
     
 def getOEmbed(playlistID):
     #OEMBED_URL = "https://open.spotify.com/oembed"
@@ -128,58 +121,6 @@ def getOEmbed(playlistID):
     if response.status_code == 200:
         oembed_data = response.json() 
         return oembed_data["html"]
-
-
-## User authentication process
-# @app.route('/login', methods=['GET'])
-# def login():
-#     # Make API call: redirect user to Spotify login
-#     params = {
-#         'client_id': SPOTIFY_CLIENT_ID,
-#         'response_type': 'code',
-#         'redirect_uri': "https://weather-board-387v.onrender.com/callback",
-#         #'scope': SCOPES,
-#         'show_dialog': 'true',  # Optional: Set to 'true' to show the consent dialog each time
-#         'state': 'some_random_string'  # Optional: Add a unique state to protect against CSRF
-#     }
-
-#     auth_url = f"https://accounts.spotify.com/authorize?{urllib.parse.urlencode(params)}"
-#     return jsonify({'auth_url': auth_url})
-
-# # Spotify redirect URI
-# @app.route('/callback')
-# def callback():
-#     # Get the auth code from user's response
-#     code = request.args.get('code')
-#     if not code:
-#         return jsonify({"error": "Authorization code not provided"}), 400
-    
-#     # Exchange it for access token by making API call to /api/token with POST
-#     token_response = requests.post("https://accounts.spotify.com/api/token", 
-#         data={
-#             'grant_type': 'authorization_code',
-#             'code': code,
-#             'redirect_uri': "https://weather-board-387v.onrender.com/callback",
-#             'client_id': SPOTIFY_CLIENT_ID,
-#             'client_secret': SPOTIFY_CLIENT_SECRET
-#         }
-#     )
-    
-#     token_json = token_response.json()
-
-#     # Check if the request was successful
-#     if 'access_token' in token_json:
-#         access_token = token_json['access_token']
-#         refresh_token = token_json['refresh_token']
-        
-#         # Send the tokens to the frontend or store them as needed
-#         return jsonify({
-#             'access_token': access_token,
-#             #'refresh_token': refresh_token # not doing refresh token right now
-#         })
-#     else:
-#         return jsonify({"error": "Failed to retrieve access token"}), 400
-
 
 ## Development
 if __name__ == '__main__':

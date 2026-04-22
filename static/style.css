@@ -1,68 +1,87 @@
-/* Fonts */
-.header {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 800;
-    font-style: normal;
-    color: #1D3557;
+/* This CSS file was created using AI. */
+
+/* ======== QUIRKY PASTEL THEME ======== */
+
+:root {
+    --bg-color: #fef9ef;      /* Soft Cream */
+    --primary-mint: #a7bed3;   /* Muted Blue-Grey */
+    --accent-pink: #ffc8dd;    /* Bubblegum */
+    --accent-yellow: #ffea00;  /* Electric Lemon */
+    --text-dark: #2b2d42;      /* Deep Navy */
+    --border-width: 3px;       /* Consistent bold border */
 }
-
-.input {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 400;
-    font-style: normal;
-
-}
-
 
 body {
-    height: 100vh; /* Make the body cover the full viewport height */
-    margin: 0; /* Remove default margin */
-    /* background: linear-gradient(to bottom, #87cefa, #005f6a); Full-page gradient */
-    background: #F1FAEE;
-    color: #1D3557;
-}
-
-.feature {
-    font-family: 'Open Sans', sans-serif;;
-    font-weight: 400;
-    font-style: normal;
-
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.622);
-
-    background-color: #A8DADC;
-    border: 5px solid #457B9D;
-}
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.card-footer p {
-    /* make text smaller */
-    font-size: 0.7rem; 
-}
-
-.playlistButton {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+    background-size: 30px 30px; /* Subtle polka dot grid background */
+    color: var(--text-dark);
     font-family: 'Poppins', sans-serif;
-    font-weight: 700;
+    padding-bottom: 50px;
+}
 
-    border-color: #E63946;
-    background-color: #E63946;
+/* Header with a "wiggle" feel */
+.header {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-weight: 700;
+    font-size: 3.5rem;
+    color: var(--text-dark);
+    text-shadow: 4px 4px 0px var(--accent-pink);
+    margin-bottom: 2rem;
+}
+
+/* Input box with "Neo-Brutalist" shadow */
+.input {
+    border: var(--border-width) solid var(--text-dark) !important;
+    border-radius: 12px !important;
+    box-shadow: 5px 5px 0px var(--text-dark);
+    transition: all 0.2s ease;
+}
+
+.input:focus {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px var(--text-dark);
+    outline: none;
+}
+
+/* The Cards (Feature) */
+.feature {
+    background-color: #ffffff; /* Clean white cards */
+    border: var(--border-width) solid var(--text-dark) !important;
+    border-radius: 20px !important;
+    box-shadow: 8px 8px 0px #bdb2ff; /* Fun Lavender shadow */
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.feature:hover {
+    transform: rotate(-1deg) scale(1.02);
+}
+
+/* Temperature Card gets a different shadow color */
+.temperature.feature {
+    box-shadow: 8px 8px 0px #ffafcc; /* Pink shadow */
+}
+
+/* Music Card gets a different shadow color */
+.music.feature {
+    box-shadow: 8px 8px 0px #9bf6ff; /* Cyan shadow */
+}
+
+/* Quirky Button */
+.playlistButton {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: var(--border-width) solid var(--text-dark) !important;
+    background-color: var(--accent-yellow) !important;
+    color: var(--text-dark) !important;
+    border-radius: 50px !important;
+    padding: 10px 20px !important;
+    box-shadow: 4px 4px 0px var(--text-dark);
+    font-weight: 900 !important;
 }
 
 .playlistButton:hover {
-    background-color: #c81b29; /* Darker pink */
-    transition: all 0.2s ease-in-out;
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px var(--text-dark);
 }
-
-.changeTemp:hover {
-    background-color: #c81b29; /* Darker blue */
-    transition: all 0.2s ease-in-out;
-}
-
-
-
-
