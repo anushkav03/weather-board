@@ -9,7 +9,7 @@ various weather-themed features.
 - Search for the current weather in any city.
 - Displays temperature, weather conditions, and relevant icons.
 - User can between Celsius and Fahrenheit.
-- Coming soon: relevant music for the weather.
+- Get relevant music for the weather.
 
 ## Demo
 https://weather-board-387v.onrender.com
